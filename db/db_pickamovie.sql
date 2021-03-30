@@ -21,7 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `db_pickamovie`
 --
-
+DROP DATABASE IF EXISTS `db_pickamovie`;
+CREATE DATABASE IF NOT EXISTS `db_pickamovie`;
+USE `db_pickamovie`;
 -- --------------------------------------------------------
 
 --
