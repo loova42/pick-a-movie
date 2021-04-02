@@ -1,0 +1,124 @@
+html {
+  position: relative;
+  min-height: 100%;
+  padding-bottom:160px;
+}
+
+body{
+    height: 100%;
+    margin : 0;
+    padding : 0;
+    background: rgb(29,38,55);
+    background: radial-gradient(circle, rgba(29,38,55,1) 14%, rgba(15,19,29,1) 95%);
+}
+
+#carouselContainer{
+  width: fit-content;
+  text-align:center;
+}
+
+#carouselIndicators {
+    width:fit-content;
+    margin:2%;
+    margin-top: 3%;
+    border-radius: 10px;
+    box-shadow: 3px 10px 20px black;
+}
+
+.carousel-inner,.carousel-item, .carousel-item img {
+  width: 100%;
+  border-radius: 8px;
+  
+}
+
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+
+.navbar {
+background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8716620437237395) 87%);
+}
+
+.navbar-brand img{
+    width: 140px;
+    height: 30px;
+}
+
+.navbar.scrolled {
+background: rgb(9,11,19);
+  transition: background-color 200ms linear;
+}
+
+.wrapper {
+    max-width: 100%;
+    margin: 2%;
+    display: grid;
+    text-align: center;
+    grid-row-gap: 2rem;
+    height:fit-content;
+}
+
+.col img{
+   
+    border-radius: 8px;
+    box-shadow: 3px 10px 20px black;
+}
+
+.col {
+   max-width: 332px;
+   max-height: 186px;
+}
+
+.col:hover {
+  transform: scale(1.05);
+}
+
+@media (min-width: 100px) {
+  .wrapper { grid-template-columns: repeat(2, 1fr); }
+  #carouselExampleIndicators {
+     margin-top: 15%;
+     margin-bottom: 10%;
+  }
+}
+
+@media (min-width: 400px) {
+  .wrapper { grid-template-columns: repeat(3, 1fr); }
+  #carouselExampleIndicators {
+     margin-top: 8%;
+     margin-bottom: 5%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .wrapper { grid-template-columns: repeat(4, 1fr); }
+    #carouselExampleIndicators {
+     margin-top: 4%;
+     margin-bottom: 3%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .wrapper { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (min-width: 1700px) {
+  .wrapper { grid-template-columns: repeat(6, 1fr); }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  background-color: black;
+  width: 100%;
+}
+
+.text{
+    font-size: small;
+    font-family: 'Open Sans', sans-serif;
+    color:rgb(177, 177, 177);
+}
+

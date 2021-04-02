@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  //CSS
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  //FONTS
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+  //jQuery
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.js"></script>!
+
+
+  <script>
+
+    // Afficher la liste des films
+    $(document).ready(function () {
+      $.get("/selectMovie.php", function () { }, "json")
+        .done(
+          function (data) {
+            var j = 0;
+            for (var i in data) {
+              // Variables
+
+              var contenu = "";
+              // Ajouts
+              contenu += "<a href='/movie.php?id=" + data[i].idMovie + "'>"
+                + "<img class='img-fluid' src='" + data[i].poster + "' title='" + data[i].titleMovie + "'>";
+
+              // Ajout a la div
+              $("<div class='col' id='" + data[i].idMovie + "'>" + contenu + "</div>").appendTo("#moviesGrid");
+              contenu = "";
+
+              //Remplissage du carousel
+              if (data[i].header != null) {
+
+                contenu += "<a href='/movie.php?id=" + data[i].idMovie + "'>"
+                  + "<img class='img-fluid' src='" + data[i].header + "'>";
+
+                if (j == 0) {
+
+                  $("<li data-target='#carouseIndicators' data-slide-to='" + j + "' class='active'>").appendTo("#carousel-indicators");
+                  $("<div class='carousel-item active'>" + contenu + "</div>").appendTo("#moviesCarousel");
+
+                } else {
+
+                  $("<li data-target='#carouseIndicators' data-slide-to='" + j + "'>").appendTo("#carousel-indicators");
+                  $("<div class='carousel-item'>" + contenu + "</div>").appendTo("#moviesCarousel");
+
+                }
+                j++;
+
+              }
+
+
+            }
+          })
+        .fail(function (error) {
+          alert("error:" + error.responseText);
+        })
+    })
+
+    //change l'apparence de la barre de naviagation quand on scroll sur la page
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".navbar");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+      });
+    });
+
+    function reloadPage() {
+      document.location.reload(true);
+    }
+
+  </script>
+</head>
+
+<body>
+
+  <!--HEADER!-->
+  <nav class="navbar fixed-top">
+    <span class="navbar-brand mb-0 h1">
+      <img src="assets/logo_white_large.png">
+    </span>
+  </nav>
+
+  <main role="main">
+
+    <!--Carousel!-->
+    <div id="carouselContainer">
+      <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-pause="hover">
+        <ol class="carousel-indicators" id="carousel-indicators">
+
+        </ol>
+        <div class="carousel-inner" id="moviesCarousel">
+
+        </div>
+      </div>
+    </div>
+
+    <!--GRID!-->
+    <div class="wrapper" id="moviesGrid">
+
+    </div>
+
+  </main>
+
+  <!--FOOTER!-->
+  <footer class="footer mt-auto py-3">
+    <div class="container">
+      <span class="text">© 2021 Pick a Movie | Tous Droits Réservés</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>
