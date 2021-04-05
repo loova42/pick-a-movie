@@ -10,6 +10,7 @@ body{
     padding : 0;
     background: rgb(29,38,55);
     background: radial-gradient(circle, rgba(29,38,55,1) 14%, rgba(15,19,29,1) 95%);
+    font-family: 'Open Sans', sans-serif;
 }
 
 #carouselContainer{
@@ -20,7 +21,6 @@ body{
 #carouselIndicators {
     width:fit-content;
     margin:2%;
-    margin-top: 3%;
     border-radius: 10px;
     box-shadow: 3px 10px 20px black;
 }
@@ -79,24 +79,32 @@ background: rgb(9,11,19);
 
 @media (min-width: 100px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
-  #carouselExampleIndicators {
-     margin-top: 15%;
+  #carouselIndicators {
+     margin-top: 25%;
      margin-bottom: 10%;
   }
 }
 
 @media (min-width: 400px) {
+  .wrapper { grid-template-columns: repeat(2, 1fr); }
+  #carouselIndicators {
+     margin-top: 25%;
+     margin-bottom: 5%;
+  }
+}
+
+@media (min-width: 600px) {
   .wrapper { grid-template-columns: repeat(3, 1fr); }
-  #carouselExampleIndicators {
-     margin-top: 8%;
+  #carouselIndicators {
+     margin-top: 25%;
      margin-bottom: 5%;
   }
 }
 
 @media (min-width: 1000px) {
   .wrapper { grid-template-columns: repeat(4, 1fr); }
-    #carouselExampleIndicators {
-     margin-top: 4%;
+    #carouselIndicators {
+     margin-top: 5%;
      margin-bottom: 3%;
   }
 }
@@ -118,7 +126,60 @@ background: rgb(9,11,19);
 
 .text{
     font-size: small;
-    font-family: 'Open Sans', sans-serif;
     color:rgb(177, 177, 177);
 }
 
+ul.nav li a {
+  color : white;
+}
+
+.nav {
+  flex-direction: row;
+}
+
+
+.modal-content {
+  border-radius: 30px;
+}
+
+.modal_header {
+  background-color: black;
+}
+.modal-body form div label {
+  color : white;
+}
+
+.modal-footer button {
+  background-color: #001787;
+  border: #131335;
+}
+
+.modal-footer button:hover {
+  background-color: #000c47;
+}
+
+.modal-header button span{
+  color: white;
+}
+
+#homePage .container div h1{
+  color:white;
+}
+
+#homePage .container div img{
+  box-shadow: 3px 10px 20px black;
+  border-radius: 100%;
+  max-width:200px;
+  height: auto;
+}
+
+.form-group input{
+  box-shadow: 3px 10px 20px black;
+}
+.form-group label {
+  color:white;
+}
+
+.form-groupe button {
+  position: center;
+}

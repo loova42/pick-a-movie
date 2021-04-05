@@ -1,5 +1,5 @@
 <?php header('Content-Type: text/html; charset=utf-8');
-require "connectDB.php";
+require "include/connectDB.php";
 
 // Préparation de la requête
 $requete=$db->prepare("select * from movie");
