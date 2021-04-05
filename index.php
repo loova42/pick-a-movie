@@ -59,12 +59,12 @@ include "include/header.php";
 
               if (j == 0) {
 
-                $("<li data-target='#carouseIndicators' data-slide-to='" + j + "' class='active'>").appendTo("#carousel-indicators");
+                $("<li data-target='#carouselIndicators' data-slide-to='" + j + "' class='active'>").appendTo("#carousel-indicators");
                 $("<div class='carousel-item active'>" + contenu + "</div>").appendTo("#moviesCarousel");
 
               } else {
 
-                $("<li data-target='#carouseIndicators' data-slide-to='" + j + "'>").appendTo("#carousel-indicators");
+                $("<li data-target='#carouselIndicators' data-slide-to='" + j + "'>").appendTo("#carousel-indicators");
                 $("<div class='carousel-item'>" + contenu + "</div>").appendTo("#moviesCarousel");
 
               }

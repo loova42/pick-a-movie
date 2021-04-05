@@ -80,24 +80,33 @@ background: rgb(9,11,19);
 @media (min-width: 100px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 25%;
+     margin-top: 42%;
      margin-bottom: 10%;
+  }
+  .carousel-indicators li {
+    visibility: hidden;
   }
 }
 
 @media (min-width: 400px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 25%;
+     margin-top: 30%;
      margin-bottom: 5%;
+  }
+  .carousel-indicators li {
+    visibility: hidden;
   }
 }
 
 @media (min-width: 600px) {
   .wrapper { grid-template-columns: repeat(3, 1fr); }
   #carouselIndicators {
-     margin-top: 25%;
+     margin-top: 15%;
      margin-bottom: 5%;
+  }
+  .carousel-indicators li {
+    visibility: visible;
   }
 }
 
@@ -107,14 +116,23 @@ background: rgb(9,11,19);
      margin-top: 5%;
      margin-bottom: 3%;
   }
+    .carousel-indicators li {
+    visibility: visible;
+  }
 }
 
 @media (min-width: 1200px) {
   .wrapper { grid-template-columns: repeat(5, 1fr); }
+    .carousel-indicators li {
+    visibility: visible;
+  }
 }
 
 @media (min-width: 1700px) {
   .wrapper { grid-template-columns: repeat(6, 1fr); }
+    .carousel-indicators li {
+    visibility: visible;
+  }
 }
 
 .footer {
