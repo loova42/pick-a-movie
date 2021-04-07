@@ -5,7 +5,7 @@ require "include/connectDB.php";
 $requete=$db->prepare("select * from movie");
 
 $requete->execute();
-
+// test
 $result = $requete->fetchAll(PDO::FETCH_ASSOC);
 
 $result = utf8_encode(json_encode($result));
