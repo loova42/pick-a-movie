@@ -31,6 +31,53 @@ class Authentication {
     }
 
     /**
+     * permet de s'enregistrer sur le site
+     * 
+     * @param $db
+     * @param $pseudo
+     * @param $nom
+     * @param $prenom
+     * @param $mdp
+     * @param $mdpVerif
+     * @param $email
+     * 
+     * @return boolean
+     */
+    public function register($db,$pseudo,$nom,$prenom,$mdp,$mdpVerif,$email){
+
+        $requete = $db->prepare("SELECT idClient FROM client WHERE emailClient = :email");
+        $requete->bindParam('email', $_POST['email'], PDO::PARAM_STR_CHAR);
+        $requete->execute();
+
+        $existingEmail = $requete->fetchObject();
+
+        if ($mdp == $mdpVerif && $existingEmail == null) {
+
+            //hashage du mot de passe
+            $hashMdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+
+            $pseudo = htmlentities($pseudo);
+            $nom = htmlentities($nom);
+            $prenom = htmlentities($prenom);
+            $email = htmlentities($email);
+
+            $requete = $db->prepare("INSERT INTO client (nickNameClient,nameClient,firstNameClient,pwdClient,emailClient) VALUES (:pseudo,:nom,:prenom,:mdp,:email)");
+            $requete->bindParam(':pseudo',$pseudo);
+            $requete->bindParam(':nom',$nom);
+            $requete->bindParam(':prenom',$prenom);
+            $requete->bindParam(':mdp',$hashMdp);
+            $requete->bindParam(':email',$email);
+
+            $requete->execute();
+
+            $connexion = $this->login($db, $_POST['email'], $_POST['mdp']);
+            header("Location:.");
+            return $connexion;
+        }
+        return false;
+    }
+
+    /**
      * permet de se connecter en tant que client simple
      * @param $db
      * @param $mail

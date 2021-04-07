@@ -15,46 +15,11 @@ if($session->get('auth')){
     exit();
 }
 
-if(
-    !empty($_POST['email']) && 
-    !empty($_POST['pseudo']) && 
-    !empty($_POST['prenom']) &&
-    !empty($_POST['nom']) &&
-    !empty($_POST['mdp'])) {
+if(!empty($_POST['email']) && !empty($_POST['pseudo']) && !empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['mdp'])) {
 
+    $connexion = $authentication->register($db,$_POST['pseudo'],$_POST['nom'],$_POST['prenom'],$_POST['mdp'],$_POST['mdpVerif'],$_POST['email']);
 
-        $requete = $db->prepare("SELECT idClient FROM client WHERE emailClient = :email");
-        $requete->bindParam('email', $_POST['email'], PDO::PARAM_STR_CHAR);
-        $requete->execute();
-
-        $existingEmail = $requete->fetchObject();
-
-        if ($_POST['mdp'] == $_POST['mdpVerif'] && $existingEmail == null) {
-
-            //hashage du mot de passe
-            $hashMdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
-
-            //
-            $pseudo = htmlentities($_POST['pseudo']);
-            $nom = htmlentities($_POST['nom']);
-            $prenom = htmlentities($_POST['prenom']);
-            $email = htmlentities($_POST['email']);
-
-            $requete = $db->prepare("INSERT INTO client (nickNameClient,nameClient,firstNameClient,pwdClient,emailClient) VALUES (:pseudo,:nom,:prenom,:mdp,:email)");
-            $requete->bindParam(':pseudo',$pseudo);
-            $requete->bindParam(':nom',$nom);
-            $requete->bindParam(':prenom',$prenom);
-            $requete->bindParam(':mdp',$hashMdp);
-            $requete->bindParam(':email',$email);
-
-            $requete->execute();
-
-            $connexion = $authentication->login($db, $_POST['email'], $_POST['mdp']);
-            header("Location:.");
-
-        }
 }
-
 ?>
 
 <section id="homePage">
@@ -117,69 +82,89 @@ if(
     </form>
 </div>
 <script>
+        $(document).ready(function(){
+        var $submitBtn = $("#registerForm input[type='submit']");
+        var $passwordBox = $("#mdp");
+        var $confirmBox = $("#mdpVerif");
+        var $errorMsg =  $('<span id="error_msg">Passwords do not match.</span>');
 
-    //Verifie si les mots de passes correspondent
-    $('#mdpVerif').on('focusout', function () {
-        if ($('#mdp').val() != "" && $('#mdpVerif').val() != "") {
-            if ($('#mdp').val() != $('#mdpVerif').val()) {
-                $('#mdpUnmatch').fadeIn();
-                $('#submit').prop("disabled", true);
-            } else {
-                $('#mdpUnmatch').fadeOut();
-                $('#submit').prop("disabled", false);
+        // au cas où l'utilisateur refresh la page.
+        $submitBtn.removeAttr("disabled");
+
+        function checkMatchingPasswords(){
+            if($confirmBox.val() != "" && $passwordBox.val != ""){
+                if( $confirmBox.val() != $passwordBox.val() ){
+                    $('#submit').prop("disabled", true);
+                    $('#mdpUnmatch').fadeIn();
+                }
             }
+        }
 
+        function checkNumberPassword() {
             var regexNumber = new RegExp("[0-9]");
-
-            if (!regexNumber.test($('#mdp').val())) {
+            if (!regexNumber.test($passwordBox.val())) {
                 $('#mdpNoNum').fadeIn();
                 $('#submit').prop("disabled", true);
             }
-            else {
-                $('#mdpNoNum').fadeOut();
-                $('#submit').prop("disabled", false);
-            }
-
         }
+
+
+        $('#mdp')
+            .on("keydown", function(e){
+                /* Ne check que quand les touches tab et enter sont pressées.
+                    pour éviter que la fontion ne soit appellée inutilement*/
+                if(e.keyCode == 13 || e.keyCode == 9) {
+                    checkNumberPassword();
+                }
+             })
+             .on("blur", function(){                    
+                // check quand l'élément n'est plus focus.
+                checkNumberPassword();
+            })
+            .on("focus", function(){
+                // reset le message d'erreur et active le bouton lors d'un changement
+                 $('#submit').prop("disabled", false);
+                  $('#mdpNoNum').fadeOut();
+            })
+
+
+        $("#mdpVerif, #mdp")
+             .on("keydown", function(e){
+                /* Ne check que quand les touches tab et enter sont pressées.
+                pour éviter que la fontion ne soit appellée inutilement*/
+                if(e.keyCode == 13 || e.keyCode == 9) {
+                    checkNumberPassword();
+                    checkMatchingPasswords();
+                }
+             })
+             .on("blur", function(){                    
+                // check quand l'élément n'est plus focus.
+                checkNumberPassword();
+                checkMatchingPasswords();
+            })
+            .on("focus", function(){
+                 // reset le message d'erreur et active le bouton lors d'un changement
+                 $('#submit').prop("disabled", false);
+                 $('#mdpNoNum').fadeOut();
+                 $('#mdpUnmatch').fadeOut();
+            })
+
+            //indique la "puissance" du mot de passe en fonction de sa longueur.
+        $('#mdp').on('keyup', function () {
+            let mdpLen = $('#mdp').val().length;
+
+            if (mdpLen == 0)
+                $('#strongMDP').val();
+            else if
+                (mdpLen >= 0 && mdpLen < 6) $('#strongMDP').text("- Faible").css("color", "red");
+            else if
+                (mdpLen >= 6 && mdpLen < 12) $('#strongMDP').text("- Moyen").css("color", "grey");
+            else
+                $('#strongMDP').text("- Fort").css("color", "green");
+        });
+
     });
-
-    //Verifie si le mdp comprend bien un chiffre au moins.
-    $('#mdp').on('focusout', function () {
-        if ($('#mdp').val() != $('#mdpVerif').val()) {
-            $('#mdpUnmatch').fadeIn();
-            $('#submit').prop("disabled", true);
-        } else {
-            $('#mdpUnmatch').fadeOut();
-            $('#submit').prop("disabled", false);
-        }
-
-        var regexNumber = new RegExp("[0-9]");
-
-
-        if (!regexNumber.test($('#mdp').val())) {
-            $('#mdpNoNum').fadeIn();
-            $('#submit').prop("disabled", true);
-        }
-        else {
-            $('#mdpNoNum').fadeOut();
-            $('#submit').prop("disabled", false);
-        }
-
-    });
-
-    //indique la "puissance" du mot de passe en fonction de sa longueur.
-    $('#mdp').on('keyup', function () {
-        let mdpLen = $('#mdp').val().length;
-
-        if (mdpLen == 0)
-            $('#strongMDP').val();
-        else if
-            (mdpLen >= 0 && mdpLen < 6) $('#strongMDP').text("- Faible").css("color", "red");
-        else if
-            (mdpLen >= 6 && mdpLen < 12) $('#strongMDP').text("- Moyen").css("color", "grey");
-        else
-            $('#strongMDP').text("- Fort").css("color", "green");
-    });
+   
 
 </script>
 <?php include "include/footer.php"; ?>
