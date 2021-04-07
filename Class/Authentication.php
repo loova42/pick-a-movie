@@ -64,16 +64,18 @@ class Authentication {
     public function loginAdmin($db,$mail,$pwd){
         $admin = null;
         
-        $requete = $db->prepare("SELECT Client.* FROM Client INNER JOIN Admin USING(idClient) WHERE emailClient = :mail AND pwdClient = :pwd");
+        $requete = $db->prepare("SELECT Client.* FROM Client INNER JOIN Admin USING(idClient) WHERE emailClient = :mail");
         $requete->bindParam('email', $mail, PDO::PARAM_STR);
-        $requete->bindParam('pwd', $pwd, PDO::PARAM_STR);
         $requete->execute();
 
         $admin = $requete->fetchObject();
 
-        if($client != null){
-            $this->connect($admin);
-            return $admin;
+        if($client != null ){
+            if(password_verify($pwd,$client->pwdClient)){
+                $this->connect($client);
+                return true;
+            }else 
+                return false;
         }
         return false;
     }
