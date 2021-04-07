@@ -2,7 +2,7 @@
 
 ?>
 
-<div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="background-color: black;">
             <div class="modal-header">
@@ -11,11 +11,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
                 <form method="POST" id="LoginForm">
                     <div class="form-group">
                         <label for="LoginEmail">Adresse Email</label>
-                        <input type="text" class="form-control" id="LoginEmail" placeholder="" name="LoginEmail">
+                        <input type="email" class="form-control" id="LoginEmail" placeholder="" name="LoginEmail">
                     </div>
 
                     <div class="form-group">
@@ -28,10 +28,17 @@
                     </div>
 
                     <div class="modal-footer form-group">
-                        <button type="submit" class="btn btn-primary" name="loginSubmit">S'authentifier</button>
+                        <button type="submit" class="btn btn-primary" name="loginSubmit"
+                            id="btnAuth">S'authentifier</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    //Si l'email et/ou le mdp sont incorrects.
+    if ($('#WrongLogin').length > 0)
+        $('#loginModal').modal('show');
+</script>

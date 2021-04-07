@@ -1,4 +1,5 @@
 <?php
+
 class Authentication {
 
     private $session;
@@ -38,16 +39,18 @@ class Authentication {
     public function login($db,$mail,$pwd){
         $client = null;
         
-        $requete = $db->prepare("SELECT * FROM Client WHERE emailClient = :mail AND pwdClient = :pwd");
+        $requete = $db->prepare("SELECT * FROM Client WHERE emailClient = :mail");
         $requete->bindParam('mail', $mail, PDO::PARAM_STR,50);
-        $requete->bindParam('pwd', $pwd, PDO::PARAM_STR,50);
         $requete->execute();
 
         $client = $requete->fetchObject();
 
-        if($client != null){
-            $this->connect($client);
-
+        if($client != null ){
+            if(password_verify($pwd,$client->pwdClient)){
+                $this->connect($client);
+                return true;
+            }else 
+                return false;
         }
         return false;
     }

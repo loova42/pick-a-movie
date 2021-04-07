@@ -4,7 +4,7 @@ class Session {
     static $instance;
 
     /**
-     * Verifie si une instance de séssion existe. Si il n'y en pas pas, elle est créée
+     * Verifie si une instance de session existe. Si il n'y en pas pas, elle est créée
      */
     static function getInstance(){
         if(!self::$instance){
@@ -23,7 +23,6 @@ class Session {
     /**
      * Récuprère une information 
      * @param string $key
-     * @param mixed $default
      * @return mixed
      */
     public function get($key) {

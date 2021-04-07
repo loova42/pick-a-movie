@@ -2,6 +2,7 @@ html {
   position: relative;
   min-height: 100%;
   padding-bottom:160px;
+  scroll-behavior: smooth;
 }
 
 body{
@@ -80,7 +81,18 @@ background: rgb(9,11,19);
 @media (min-width: 100px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 42%;
+     margin-top: 30%;
+     margin-bottom: 10%;
+  }
+  .carousel-indicators li {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 350px) {
+  .wrapper { grid-template-columns: repeat(2, 1fr); }
+  #carouselIndicators {
+     margin-top: 25%;
      margin-bottom: 10%;
   }
   .carousel-indicators li {
@@ -91,7 +103,7 @@ background: rgb(9,11,19);
 @media (min-width: 400px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 30%;
+     margin-top: 15%;
      margin-bottom: 5%;
   }
   .carousel-indicators li {
@@ -102,7 +114,7 @@ background: rgb(9,11,19);
 @media (min-width: 600px) {
   .wrapper { grid-template-columns: repeat(3, 1fr); }
   #carouselIndicators {
-     margin-top: 15%;
+     margin-top: 8%;
      margin-bottom: 5%;
   }
   .carousel-indicators li {
@@ -187,7 +199,7 @@ ul.nav li a {
 #homePage .container div img{
   box-shadow: 3px 10px 20px black;
   border-radius: 100%;
-  max-width:200px;
+  max-width:150px;
   height: auto;
 }
 
