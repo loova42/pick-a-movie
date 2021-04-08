@@ -1,16 +1,27 @@
 <?php header('Content-Type: text/html; charset=utf-8');
 require "include/connectDB.php";
 
-// Préparation de la requête
-$requete=$db->prepare("select * from movie");
+//verifie si la requête est bien de l'ajax.
+function isAjax() {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+}
 
-$requete->execute();
+if(isAjax()){
 
-$result = $requete->fetchAll(PDO::FETCH_ASSOC);
+    // Préparation de la requête
+    $requete=$db->prepare("select * from movie");
 
-$result = utf8_encode(json_encode($result));
+    $requete->execute();
 
-// Affichage sur la page.php
-echo $result;
+    $result = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = utf8_encode(json_encode($result));
+
+    // Affichage sur la page.php
+    echo $result;
+
+}else {
+    echo "access denied";
+}
 
 ?>
