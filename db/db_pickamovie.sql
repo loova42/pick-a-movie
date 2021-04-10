@@ -20,8 +20,8 @@ SET
 --
   -- Base de données :  `db_pickamovie`
   --
-  DROP db_pickamovie;
-CREATE DATABASE IF NOT EXISTS db_pickamovie;
+DROP DATABASE db_pickamovie;
+CREATE DATABASE IF NOT EXISTS db_pickamovie CHARACTER SET utf8 COLLATE utf8_bin;
 USE db_pickamovie;
 -- --------------------------------------------------------
   --
