@@ -37,9 +37,9 @@ if(!empty($_POST['email']) && !empty($_POST['pseudo']) && !empty($_POST['prenom'
     <form method="post" action="register.php" id="registerForm">
         <div class="form-group">
             <label for="mail">Adresse Email</label>
-            <input type="email" class="form-control" id="InscriptionMail" placeholder="" name="email"
+            <input type="email" class="form-control" id="email" placeholder="" name="email"
                 required="required" value="<?php if (isset($_POST['email'])){echo htmlentities($_POST['email']);} ?>">
-            <?php if (!empty($existingEmail)) echo "<span style=\"color: red;\">Cette adresse mail est déjà prise</span>" ?>
+            <span id="emailExists" style="display:none; color: red;">Cette adresse mail est déjà prise</span>
         </div>
 
         <div class="form-group">
@@ -87,6 +87,21 @@ if(!empty($_POST['email']) && !empty($_POST['pseudo']) && !empty($_POST['prenom'
         var $passwordBox = $("#mdp");
         var $confirmBox = $("#mdpVerif");
         var $errorMsg =  $('<span id="error_msg">Passwords do not match.</span>');
+
+        $.ajax({
+            url:"getEmail.php",
+            method:"GET",
+            data: {email: $("#email").val()},
+            dataType:"json",
+            success : function(email){
+                test = email[0].emailClient;
+                if(email[0].emailClient != null ){
+                    $("#emailExists").fadeIn();
+                    $('#submit').prop("disabled", true);
+
+                }
+            }
+        });
 
         // au cas où l'utilisateur refresh la page.
         $submitBtn.removeAttr("disabled");
@@ -162,6 +177,29 @@ if(!empty($_POST['email']) && !empty($_POST['pseudo']) && !empty($_POST['prenom'
             else
                 $('#strongMDP').text("- Fort").css("color", "green");
         });
+
+        
+        $('#email')
+            .on("focusout", function() {
+                $.ajax({
+                    url:"getEmail.php",
+                    method:"GET",
+                    data: {email: $("#email").val()},
+                    dataType:"json",
+                    success : function(email){
+                        test = email[0].emailClient;
+                        if(email[0].emailClient != null ){
+                            $("#emailExists").fadeIn();
+                           $('#submit').prop("disabled", true);
+
+                        }
+                    }
+                });
+            })
+            .on("focus", function(){
+                $("#emailExists").fadeOut();
+                $('#submit').prop("disabled", false);
+            });
 
     });
    

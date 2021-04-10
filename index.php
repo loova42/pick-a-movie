@@ -45,7 +45,7 @@ include "include/header.php";
             var contenu = "";
             // Ajouts
             contenu += "<a href='/movie.php?id=" + data[i].idMovie + "'>"
-            + "<img class='img-fluid' src='" + data[i].poster + "' title='" + escapeHtml(data[i].titleMovie) + "'>";
+            + "<img class='img-fluid' src='" + data[i].thumbnail + "' title='" + escapeHtml(data[i].titleMovie) + "'>";
 
             // Ajout a la div
             $("<div class='col' id='" + data[i].idMovie + "'>" + contenu + "</div>").appendTo("#moviesGrid");

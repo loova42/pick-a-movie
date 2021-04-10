@@ -11,7 +11,7 @@ body{
     padding : 0;
     background: rgb(29,38,55);
     background: radial-gradient(circle, rgba(29,38,55,1) 14%, rgba(15,19,29,1) 95%);
-    font-family: 'Open Sans', sans-serif;
+   font-family: 'Open Sans', sans-serif;
 }
 
 #carouselContainer{
@@ -39,9 +39,10 @@ body{
 }
 
 
-.navbar {
-background: rgb(0,0,0);
-background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8716620437237395) 87%);
+
+.navbar{
+background: rgb(0,0,0) !important;
+background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8716620437237395) 87%) !important;
 }
 
 .navbar-brand img{
@@ -50,7 +51,7 @@ background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.871662043723739
 }
 
 .navbar.scrolled {
-background: rgb(9,11,19);
+  background: rgb(9,11,19) !important;
   transition: background-color 200ms linear;
 }
 
@@ -81,19 +82,26 @@ background: rgb(9,11,19);
 @media (min-width: 100px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 30%;
+     margin-top: 17%;
      margin-bottom: 10%;
+  }
+  #containerMovie {
+     margin-top: 17%;
   }
   .carousel-indicators li {
     visibility: hidden;
   }
+
 }
 
 @media (min-width: 350px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 25%;
+     margin-top: 13%;
      margin-bottom: 10%;
+  }
+    #containerMovie {
+     margin-top: 13%;
   }
   .carousel-indicators li {
     visibility: hidden;
@@ -103,8 +111,11 @@ background: rgb(9,11,19);
 @media (min-width: 400px) {
   .wrapper { grid-template-columns: repeat(2, 1fr); }
   #carouselIndicators {
-     margin-top: 15%;
+     margin-top: 10%;
      margin-bottom: 5%;
+  }
+  #containerMovie {
+     margin-top: 10%;
   }
   .carousel-indicators li {
     visibility: hidden;
@@ -114,8 +125,11 @@ background: rgb(9,11,19);
 @media (min-width: 600px) {
   .wrapper { grid-template-columns: repeat(3, 1fr); }
   #carouselIndicators {
-     margin-top: 8%;
+     margin-top: 5%;
      margin-bottom: 5%;
+  }
+  #containerMovie {
+     margin-top: 5%;
   }
   .carousel-indicators li {
     visibility: visible;
@@ -125,8 +139,11 @@ background: rgb(9,11,19);
 @media (min-width: 1000px) {
   .wrapper { grid-template-columns: repeat(4, 1fr); }
     #carouselIndicators {
-     margin-top: 5%;
+     margin-top: 4%;
      margin-bottom: 3%;
+  }
+  #containerMovie {
+     margin-top: 2%;
   }
     .carousel-indicators li {
     visibility: visible;
@@ -159,24 +176,40 @@ background: rgb(9,11,19);
     color:rgb(177, 177, 177);
 }
 
-ul.nav li a {
+.navbar-nav li a {
   color : white;
 }
 
-.nav {
-  flex-direction: row;
+.nav-link.disabled{
+  color: white;
+}
+
+#navbarDropdown {
+  color: white;
+}
+
+#btnDeco {
+  color : white;
+}
+
+#btnDeco:hover {
+  color :#16181b;
 }
 
 
 .modal-content {
-  border-radius: 30px;
+  border-radius: 15px;
 }
 
-.modal_header {
-  background-color: black;
+.modal-header {
+  border-bottom-color: #595959;
 }
 .modal-body form div label {
   color : white;
+}
+
+.modal-footer {
+    border-top: 0 none;
 }
 
 .modal-footer button {
@@ -212,4 +245,46 @@ ul.nav li a {
 
 .form-groupe button {
   position: center;
+}
+
+.dropdown-menu{
+  background-color: #171717;
+  border-radius: 5px;
+  border-color: #595959;
+}
+
+.dropdown-divider{
+  border-color : #595959;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #919191;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: #e9ecef;
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  box-shadow: 3px 10px 20px black;
+  margin-left:3%;
+  margin-right: 3%;
+
+}
+
+.card-body {
+  color: white;
 }
