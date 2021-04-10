@@ -4,7 +4,7 @@
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="background-color: black;">
+        <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.85);">
             <div class="modal-header">
                 <h5 class="modal-title" id="loginTitle" style="color: white;"><strong>Authentifiez-vous</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
