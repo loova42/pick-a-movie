@@ -35,7 +35,7 @@ include "include/header.php";
 
     // Afficher la liste des films
   $(document).ready(function () {
-    $.get("/getMovie.php", function () { }, "json")
+    $.get("requetes/getMovies.php", function () { }, "json")
       .done(
         function (data) {
           var j = 0;

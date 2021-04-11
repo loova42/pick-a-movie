@@ -89,7 +89,7 @@ if(!empty($_POST['email']) && !empty($_POST['pseudo']) && !empty($_POST['prenom'
         var $errorMsg =  $('<span id="error_msg">Passwords do not match.</span>');
 
         $.ajax({
-            url:"getEmail.php",
+            url:"requetes/getEmail.php",
             method:"GET",
             data: {email: $("#email").val()},
             dataType:"json",
@@ -182,7 +182,7 @@ if(!empty($_POST['email']) && !empty($_POST['pseudo']) && !empty($_POST['prenom'
         $('#email')
             .on("focusout", function() {
                 $.ajax({
-                    url:"getEmail.php",
+                    url:"requetes/getEmail.php",
                     method:"GET",
                     data: {email: $("#email").val()},
                     dataType:"json",

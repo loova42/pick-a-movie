@@ -1,15 +1,6 @@
 <?php
 include("include/header.php");
 include("include/nav.php");
-require "include/connectDB.php";
-
-
-$requete = $db->prepare("SELECT * FROM movie WHERE idMovie = :id");
-$requete->bindParam('id', $_GET['id'], PDO::PARAM_INT);
-$requete->execute();
-
-$movie = $requete->fetchObject();
-
 ?>
 
 <!-- Page Content -->
@@ -20,15 +11,22 @@ $movie = $requete->fetchObject();
         <div class="col-lg-15">
 
             <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+                <div id="image">
+                    
+                </div>  
                 <div class="card-body">
-                    <h3 class="card-title"><strong>
-                            <?= $movie->titleMovie; ?>
-                        </strong></h3>
-                    <h4>Réalisateur</h4>
-                    <p class="card-text">
-                        <?= $movie->summaryMovie ?>
-                    </p>
+                    <h3 class="card-title">
+                        <div id="title">
+
+                        </div>
+                    </h3>
+                    <div id="realisateur">
+
+                    </div>
+                    <div id="resume">
+
+                    </div>
+                    
                     <!--<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars!-->
                     <select class="browser-default custom-select" style="margin-top:3px;max-width: 200px;">
@@ -86,6 +84,29 @@ $movie = $requete->fetchObject();
 <?php include "modalConnect.php";?>
 <?php include "include/footer.php"; ?>
 <script>
+
+    $(document).ready(function() {
+        var idMovie = <?= $_GET['id'] ?>;
+
+        $.ajax({
+            url:"requetes/getMovieById.php",
+            method:"GET",
+            data: {idMovie: idMovie},
+            dataType:"json",
+            success : function(movie){
+                $("<strong>" + movie[0].titleMovie + "</strong>").appendTo("#title");
+                $("<h4> Réalisé par : " + movie[0].director + "</h4>").appendTo("#realisateur");
+                $("<p class='card-text'>" + movie[0].summaryMovie + "</p>").appendTo("#resume");
+                $("<img class='card-img-top img-fluid' src='"+ movie[0].poster +"' alt='"+movie[0].titleMovie+"'>").appendTo("#image");
+                
+                
+            }
+        });
+        
+        
+
+    });
+    
     //change l'apparence de la barre de naviagation quand on scroll sur la page
     $(function () {
         $(document).scroll(function () {

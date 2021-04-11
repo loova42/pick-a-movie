@@ -1,5 +1,5 @@
 <?php header('Content-Type: text/html; charset=utf-8');
-require "include/connectDB.php";
+require "../include/connectDB.php";
 
 //verifie si la requête est bien de l'ajax.
 function isAjax() {
@@ -9,8 +9,9 @@ function isAjax() {
 if(isAjax()){
 
     // Préparation de la requête
-    $requete=$db->prepare("select emailClient from client where emailClient = :email");
-    $requete->bindParam(':email', $_GET['email'],PDO::PARAM_STR,50);
+    $requete=$db->prepare("select * from movie where idMovie = :idMovie");
+
+    $requete->bindParam(':idMovie', $_GET['idMovie']);
     $requete->execute();
 
     $result = $requete->fetchAll(PDO::FETCH_ASSOC);
