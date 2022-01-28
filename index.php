@@ -88,9 +88,7 @@ include "include/header.php";
     });
   });
 
-  /*function reloadPage() {
-    document.location.reload(true);
-  }*/
+
 
   function escapeHtml(unsafe) {
     return unsafe
